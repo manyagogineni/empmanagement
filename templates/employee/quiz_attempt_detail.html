@@ -1,0 +1,50 @@
+<!-- templates/employee/quiz_attempt_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Attempt Detail</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS -->
+</head>
+<body>
+    <h1>Quiz Attempt Detail for {{ attempt.quiz.title }}</h1>
+    <p>Your Score: {{ attempt.score }} out of {{ attempt.total_questions }}</p>
+    <p>Date Attempted: {{ attempt.date_attempted }}</p>
+
+    <h2>Questions and Answers</h2>
+    <ul>
+        {% for question in questions %}
+            <li>
+                <p>{{ question.text }}</p>
+                {% for answer in question.answers.all %}
+                    <p>
+                        {{ answer.text }}
+                        {% if answer.is_correct %}
+                            <strong>(Correct)</strong>
+                        {% elif answer.id == request.POST.get(str(question.id)) %}
+                            <strong>(Your Answer)</strong>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </li>
+        {% end
+        {% for answer in question.answers.all %}
+                    <p>
+                        {{ answer.text }}
+                        {% if answer.is_correct %}
+                            <strong>(Correct)</strong>
+                        {% elif answer.id == request.POST.get(str(question.id)) %}
+                            <strong>(Your Answer)</strong>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'user_progress' %}">Back to Progress</a>
+    <a href="{% url 'quiz_list' %}">Back to Quiz List</a>
+</body>
+</html>

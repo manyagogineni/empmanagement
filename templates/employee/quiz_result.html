@@ -1,0 +1,36 @@
+<!-- templates/employee/quiz_result.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS -->
+</head>
+<body>
+    <h1>Quiz Result for {{ quiz.title }}</h1>
+    <p>Your Score: {{ score }} out of {{ total_questions }}</p>
+
+    <h2>Review Your Answers</h2>
+    <ul>
+        {% for question in quiz.questions.all %}
+            <li>
+                <p>{{ question.text }}</p>
+                {% for answer in question.answers.all %}
+                    <p>
+                        {{ answer.text }}
+                        {% if answer.is_correct %}
+                            <strong>(Correct)</strong>
+                        {% elif answer.id == request.POST.get(str(question.id)) %}
+                            <strong>(Your Answer)</strong>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'quiz_list' %}">Back to Quiz List</a>
+</body>
+</html>

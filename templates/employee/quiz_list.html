@@ -1,0 +1,24 @@
+<!-- templates/employee/quiz_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS -->
+</head>
+<body>
+    <h1>Available Quizzes</h1>
+    <ul>
+        {% for quiz in quizzes %}
+            <li>
+                <a href="{% url 'quiz_detail' quiz.id %}">{{ quiz.title }}</a>
+                <p>{{ quiz.description }}</p>
+            </li>
+        {% empty %}
+            <li>No quizzes available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

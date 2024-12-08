@@ -1,0 +1,39 @@
+<!-- templates/employee/user_progress.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Quiz Progress</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS -->
+</head>
+<body>
+    <h1>Your Quiz Progress</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Quiz Title</th>
+                <th>Score</th>
+                <th>Total Questions</th>
+                <th>Date Attempted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt.quiz.title }}</td>
+                    <td>{{ attempt.score }}</td>
+                    <td>{{ attempt.total_questions }}</td>
+                    <td>{{ attempt.date_attempted }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No quiz attempts found.</<td colspan="4">No quiz attempts found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'quiz_list' %}">Back to Quiz List</a>
+</body>
+</html>
